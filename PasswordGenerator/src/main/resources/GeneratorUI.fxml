@@ -9,8 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GeneratorUIController">
    <children>
       <CheckBox fx:id="includeLettersBox" layoutX="15.0" layoutY="206.0" mnemonicParsing="false" selected="true" text="Letters: akLEroRiJ" />
       <CheckBox fx:id="includeSpecialBox" layoutX="15.0" layoutY="228.0" mnemonicParsing="false" selected="true" text="Special: !#?*^%" />
@@ -18,8 +17,8 @@
       <Separator layoutX="1.0" layoutY="153.0" prefHeight="3.0" prefWidth="183.0" />
       <TableView fx:id="passwordDisplay" layoutX="183.0" layoutY="13.0" prefHeight="269.0" prefWidth="228.0">
         <columns>
-          <TableColumn fx:id="passwordNumber" prefWidth="27.33331298828125" text="#" />
-          <TableColumn fx:id="password" prefWidth="199.33331298828125" text="Password" />
+          <TableColumn fx:id="passwordNumberColumn" prefWidth="27.33331298828125" text="#" />
+          <TableColumn fx:id="passwordColumn" prefWidth="199.33331298828125" text="Password" />
         </columns>
       </TableView>
       <Button layoutX="33.0" layoutY="118.0" mnemonicParsing="false" onAction="#generatePasswordBtn" text="Generate Password" />
