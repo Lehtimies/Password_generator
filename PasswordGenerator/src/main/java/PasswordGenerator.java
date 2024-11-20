@@ -54,11 +54,16 @@ public class PasswordGenerator {
         }
         if (!characterSets.isEmpty()) {
             int i = 0;
+            int attempts = 0;
             while (i < passwordLength) {
                 int randomSetIndex = random.nextInt(characterSets.size());
                 String[] randomSet = characterSets.get(randomSetIndex);
                 int randomCharacterIndex = random.nextInt(randomSet.length);
+                if (attempts == 50) {
+                    return "Error: Unable to generate password with given parameters";
+                }
                 if (noDuplicate && password.contains(randomSet[randomCharacterIndex])) {
+                    attempts++;
                     continue;
                 }
                 password += randomSet[randomCharacterIndex];

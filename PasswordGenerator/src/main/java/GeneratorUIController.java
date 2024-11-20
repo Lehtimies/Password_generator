@@ -37,10 +37,17 @@ public class GeneratorUIController {
 
     @FXML
     private void generatePasswordBtn() {
-        // TODO: Add code
         clearDisplay();
-        int passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
-        int numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
+        int passwordLength;
+        int numberOfPasswords;
+        try {
+            passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
+            numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
+        } catch (NumberFormatException e) {
+            ErrorWindowCreator errorWindow = new ErrorWindowCreator("Error", null, "Select valid password length or enter a valid value for 'Number of passwords'");
+            errorWindow.show();
+            return;
+        }
         generator = new PasswordGenerator(passwordLength, includeNumbersBox.isSelected(), includeLowercaseBox.isSelected(), includeUppercaseBox.isSelected(), includeSpecialBox.isSelected(), noDuplicateBox.isSelected(), noSequentialBox.isSelected());
         for (int i = 1; i < numberOfPasswords + 1; i++) {
             String password = generator.generatePassword();
