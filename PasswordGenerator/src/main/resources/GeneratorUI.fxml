@@ -2,31 +2,39 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GeneratorUIController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GeneratorUIController">
    <children>
-      <CheckBox fx:id="includeLettersBox" layoutX="15.0" layoutY="206.0" mnemonicParsing="false" selected="true" text="Letters: akLEroRiJ" />
-      <CheckBox fx:id="includeSpecialBox" layoutX="15.0" layoutY="228.0" mnemonicParsing="false" selected="true" text="Special: !#?*^%" />
-      <CheckBox fx:id="includeNumbersBox" layoutX="15.0" layoutY="184.0" mnemonicParsing="false" selected="true" text="Numbers: 1284956" />
-      <Separator layoutX="1.0" layoutY="153.0" prefHeight="3.0" prefWidth="183.0" />
-      <TableView fx:id="passwordDisplay" layoutX="183.0" layoutY="13.0" prefHeight="269.0" prefWidth="228.0">
+      <CheckBox fx:id="includeLowercaseBox" layoutX="199.0" layoutY="62.0" mnemonicParsing="false" selected="true" text="abcdefg" />
+      <CheckBox fx:id="noDuplicateBox" layoutX="199.0" layoutY="124.0" mnemonicParsing="false" selected="true" text="Don't use a character more than once" />
+      <CheckBox fx:id="includeNumbersBox" layoutX="199.0" layoutY="41.0" mnemonicParsing="false" selected="true" text="1284956" />
+      <TableView fx:id="passwordDisplay" layoutX="15.0" layoutY="235.0" prefHeight="190.0" prefWidth="531.0">
         <columns>
-          <TableColumn fx:id="passwordNumberColumn" prefWidth="27.33331298828125" text="#" />
-          <TableColumn fx:id="passwordColumn" prefWidth="199.33331298828125" text="Password" />
+          <TableColumn fx:id="passwordNumberColumn" prefWidth="37.999969482421875" text="#" />
+          <TableColumn fx:id="passwordColumn" prefWidth="491.3333435058594" text="Password" />
         </columns>
       </TableView>
-      <Button layoutX="33.0" layoutY="118.0" mnemonicParsing="false" onAction="#generatePasswordBtn" text="Generate Password" />
-      <Label layoutX="15.0" layoutY="161.0" prefHeight="17.0" prefWidth="129.0" text="Characters to include:" />
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="117.0" text="Password length:" />
-      <Label layoutX="12.0" layoutY="62.0" prefHeight="17.0" prefWidth="160.0" text="Number of passwords: " />
-      <TextField fx:id="passwordLengthField" layoutX="12.0" layoutY="34.0" prefHeight="25.0" prefWidth="160.0" />
-      <TextField fx:id="numberOfPasswordsField" layoutX="12.0" layoutY="84.0" prefHeight="25.0" prefWidth="160.0" />
-      <Button layoutX="15.0" layoutY="255.0" mnemonicParsing="false" onAction="#savePasswordBtn" prefHeight="25.0" prefWidth="113.0" text="Save Password" />
+      <Button layoutX="14.0" layoutY="199.0" mnemonicParsing="false" onAction="#generatePasswordBtn" prefHeight="25.0" prefWidth="169.0" text="Generate Passwords" />
+      <Label layoutX="16.0" layoutY="16.0" prefHeight="17.0" prefWidth="117.0" text="Password length:" />
+      <Label layoutX="16.0" layoutY="168.0" prefHeight="17.0" prefWidth="128.0" text="Number of passwords: " />
+      <TextField fx:id="numberOfPasswordsField" layoutX="199.0" layoutY="164.0" prefHeight="25.0" prefWidth="221.0" text="5" />
+      <Button layoutX="196.0" layoutY="199.0" mnemonicParsing="false" onAction="#copyPasswordBtn" prefHeight="25.0" prefWidth="169.0" text="Copy Selected Password" />
+      <CheckBox fx:id="includeUppercaseBox" layoutX="199.0" layoutY="83.0" mnemonicParsing="false" selected="true" text="ABCDEFG" />
+      <CheckBox fx:id="noSequentialBox" layoutX="199.0" layoutY="144.0" mnemonicParsing="false" selected="true" text="No sequential characters, e.g. abc " />
+      <Label layoutX="16.0" layoutY="41.0" prefHeight="17.0" prefWidth="117.0" text="Include Numbers:" />
+      <Label layoutX="15.0" layoutY="62.0" prefHeight="17.0" prefWidth="176.0" text="Include Lowercase Characters:" />
+      <Label layoutX="15.0" layoutY="83.0" prefHeight="17.0" prefWidth="176.0" text="Include Uppercase Characters:" />
+      <Label layoutX="15.0" layoutY="124.0" prefHeight="17.0" prefWidth="176.0" text="No Duplicate Characters:" />
+      <Label layoutX="15.0" layoutY="144.0" prefHeight="17.0" prefWidth="176.0" text="No Sequential Characters:" />
+      <Button layoutX="377.0" layoutY="199.0" mnemonicParsing="false" onAction="#copyAllPasswordsBtn" prefHeight="25.0" prefWidth="169.0" text="Copy All Passwords" />
+      <Label layoutX="15.0" layoutY="104.0" prefHeight="17.0" prefWidth="176.0" text="Include Special Characters:" />
+      <CheckBox fx:id="includeSpecialBox" layoutX="199.0" layoutY="103.0" mnemonicParsing="false" selected="true" text="!&quot;#$€&amp;/()[]{}?^*-:" />
+      <ChoiceBox fx:id="passwordLengthChoiceBox" layoutX="199.0" layoutY="12.0" prefHeight="25.0" prefWidth="221.0" />
    </children>
 </Pane>
