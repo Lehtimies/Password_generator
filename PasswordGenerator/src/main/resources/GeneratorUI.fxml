@@ -16,8 +16,8 @@
       <CheckBox fx:id="includeNumbersBox" layoutX="199.0" layoutY="41.0" mnemonicParsing="false" selected="true" text="1284956" />
       <TableView fx:id="passwordDisplay" layoutX="15.0" layoutY="235.0" prefHeight="190.0" prefWidth="531.0">
         <columns>
-          <TableColumn fx:id="passwordNumberColumn" prefWidth="37.999969482421875" text="#" />
-          <TableColumn fx:id="passwordColumn" prefWidth="491.3333435058594" text="Password" />
+          <TableColumn fx:id="passwordNumberColumn" editable="false" prefWidth="30.0" resizable="false" text="#" />
+          <TableColumn fx:id="passwordColumn" editable="false" prefWidth="501.0" resizable="false" text="Password" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="199.0" mnemonicParsing="false" onAction="#generatePasswordBtn" prefHeight="25.0" prefWidth="169.0" text="Generate Passwords" />

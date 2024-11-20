@@ -24,6 +24,8 @@ public class GeneratorUIController {
     private static final ObservableList<String> passwordLengths = FXCollections.observableArrayList("6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25");
     private ObservableList<Password> passwordList = FXCollections.observableArrayList();
 
+    PasswordGenerator generator;
+
     @FXML
     private void initialize() {
         passwordLengthChoiceBox.setItems(passwordLengths);
@@ -39,9 +41,10 @@ public class GeneratorUIController {
         clearDisplay();
         int passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
         int numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
-        // Hard coded test password
+        generator = new PasswordGenerator(passwordLength, includeNumbersBox.isSelected(), includeLowercaseBox.isSelected(), includeUppercaseBox.isSelected(), includeSpecialBox.isSelected(), noDuplicateBox.isSelected(), noSequentialBox.isSelected());
         for (int i = 1; i < numberOfPasswords + 1; i++) {
-            passwordList.add(new Password(i, "TestPassword" + i));
+            String password = generator.generatePassword();
+            passwordList.add(new Password(i, password));
         }
     }
 
