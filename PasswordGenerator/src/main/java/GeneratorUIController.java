@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Clipboard;
@@ -38,16 +37,16 @@ public class GeneratorUIController {
     private void generatePasswordBtn() {
         // TODO: Add code
         clearDisplay();
+        int passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
         int numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
         // Hard coded test password
         for (int i = 1; i < numberOfPasswords + 1; i++) {
-            passwordList.add(new Password(i, "TestPassword"));
+            passwordList.add(new Password(i, "TestPassword" + i));
         }
     }
 
     @FXML
     private void copyPasswordBtn() {
-        // TODO: Add code
         String passwordToClipboard = passwordDisplay.getSelectionModel().getSelectedItem().getPassword();
         StringSelection stringSelection = new StringSelection(passwordToClipboard);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -56,7 +55,13 @@ public class GeneratorUIController {
 
     @FXML
     private void copyAllPasswordsBtn() {
-        // TODO: Add code
+        String passwordsToClipboard = "";
+        for (Password password : passwordList) {
+            passwordsToClipboard += password.getPassword() + "\n";
+        }
+        StringSelection stringSelection = new StringSelection(passwordsToClipboard);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 
     private void clearDisplay() {
