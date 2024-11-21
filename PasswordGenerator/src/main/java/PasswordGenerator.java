@@ -3,18 +3,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class PasswordGenerator {
-    // For testing purposes!
-    /*
-    public static void main(String[] args) {
-        PasswordGenerator generator = new PasswordGenerator(5, true, false, false, false, false, true);
-        int amount = 10;
-        for (int i = 0; i < amount; i++) {
-            String password = generator.generatePassword();
-            System.out.println(password);
-        }
-    }
-    */
-
+    // Declare the fields that will be used to generate the password
     private final int passwordLength;
     private final boolean includeNumbers;
     private final boolean includeLowercase;
@@ -23,6 +12,7 @@ public class PasswordGenerator {
     private final boolean noDuplicate;
     private final boolean noSequential;
 
+    // Create the character sets as well as the last character and set used to generate the password
     private static final String[] NUMBERS = {"0","1","2","3","4","5","6","7","8","9"};
     private static final String[] LOWERCASE = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     private static final String[] UPPERCASE = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
@@ -30,6 +20,16 @@ public class PasswordGenerator {
     private String lastCharacter;
     private String[] lastSet;
 
+    /**
+     * Constructor for the PasswordGenerator class
+     * @param passwordLength The length of the password to generate
+     * @param includeNumbers Whether to include numbers in the password
+     * @param includeLowercase Whether to include lowercase letters in the password
+     * @param includeUppercase Whether to include uppercase letters in the password
+     * @param includeSpecial Whether to include special characters in the password
+     * @param noDuplicate Whether to include duplicate characters in the password
+     * @param noSequential Whether to include sequential characters in the password
+     */
     public PasswordGenerator(int passwordLength, boolean includeNumbers, boolean includeLowercase, boolean includeUppercase, boolean includeSpecial, boolean noDuplicate, boolean noSequential) {
         this.passwordLength = passwordLength;
         this.includeNumbers = includeNumbers;
@@ -48,6 +48,7 @@ public class PasswordGenerator {
         String password = "";
         Random random = new Random();
         ArrayList<String[]> characterSets = new ArrayList<>();
+        // Add the character sets to the list of character sets to choose from
         if (includeNumbers) {
             characterSets.add(NUMBERS);
         }
@@ -60,24 +61,30 @@ public class PasswordGenerator {
         if (includeSpecial) {
             characterSets.add(SPECIAL);
         }
+        // Generate the password
         if (!characterSets.isEmpty()) {
             int i = 0;
-            int attempts = 0;
+            int attempts = 0; // Used to prevent infinite loops
             while (i < passwordLength) {
+                // Choose a random character set and a random character from that set
                 int randomSetIndex = random.nextInt(characterSets.size());
                 String[] randomSet = characterSets.get(randomSetIndex);
                 int randomCharacterIndex = random.nextInt(randomSet.length);
-                if (attempts == 100) {
+                if (attempts == 100) { // If the generator fails to generate a password after 100 attempts, return an error message
                     return "Error: Unable to generate password with given parameters";
                 }
+                // If the password contains duplicates and the user doesn't want to include them
+                // increase the attempt counter and generate a new character
                 if (noDuplicate && password.contains(randomSet[randomCharacterIndex])) {
                     attempts++;
                     continue;
                 }
+                // Same as for duplicates, but for sequential characters
                 if (noSequential && checkIfSequential(randomSet[randomCharacterIndex], randomSet)) {
                     attempts++;
                     continue;
                 }
+                // Add the character to the password and update the last character and set used
                 password += randomSet[randomCharacterIndex];
                 lastSet = randomSet;
                 lastCharacter = randomSet[randomCharacterIndex];
