@@ -17,6 +17,7 @@ public class PasswordGenerator {
     private static final String[] LOWERCASE = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     private static final String[] UPPERCASE = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     private static final String[] SPECIAL = {"!","@","#","$","%","^","&","*","(",")","-","_","=","+","[","]","{","}",";",":","'","\\","|",",","<",".",">","/","?"};
+    private static final int MAX_ATTEMPTS = 100;
     private String lastCharacter;
     private String[] lastSet;
 
@@ -45,7 +46,7 @@ public class PasswordGenerator {
      * @return The generated password
      */
     public String generatePassword() {
-        String password = "";
+        String password = ""; // Not using a StringBuilder for improved code readability
         Random random = new Random();
         ArrayList<String[]> characterSets = new ArrayList<>();
         // Add the character sets to the list of character sets to choose from
@@ -66,13 +67,13 @@ public class PasswordGenerator {
             int i = 0;
             int attempts = 0; // Used to prevent infinite loops
             while (i < passwordLength) {
+                if (attempts == MAX_ATTEMPTS) { // If the generator fails to generate a password after 100 attempts, return an error message
+                    return "Error: Unable to generate password with given parameters";
+                }
                 // Choose a random character set and a random character from that set
                 int randomSetIndex = random.nextInt(characterSets.size());
                 String[] randomSet = characterSets.get(randomSetIndex);
                 int randomCharacterIndex = random.nextInt(randomSet.length);
-                if (attempts == 100) { // If the generator fails to generate a password after 100 attempts, return an error message
-                    return "Error: Unable to generate password with given parameters";
-                }
                 // If the password contains duplicates and the user doesn't want to include them
                 // increase the attempt counter and generate a new character
                 if (noDuplicate && password.contains(randomSet[randomCharacterIndex])) {

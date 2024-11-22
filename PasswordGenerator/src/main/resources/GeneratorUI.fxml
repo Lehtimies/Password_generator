@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GeneratorUIController">
    <children>
@@ -23,7 +17,7 @@
       <Button layoutX="14.0" layoutY="199.0" mnemonicParsing="false" onAction="#generatePasswordBtn" prefHeight="25.0" prefWidth="169.0" text="Generate Passwords" />
       <Label layoutX="16.0" layoutY="16.0" prefHeight="17.0" prefWidth="117.0" text="Password length:" />
       <Label layoutX="16.0" layoutY="168.0" prefHeight="17.0" prefWidth="128.0" text="Number of passwords: " />
-      <TextField fx:id="numberOfPasswordsField" layoutX="199.0" layoutY="164.0" prefHeight="25.0" prefWidth="221.0" text="5" />
+      <TextField fx:id="numberOfPasswordsField" layoutX="199.0" layoutY="164.0" onKeyPressed="#generatePasswordEnter" prefHeight="25.0" prefWidth="221.0" text="5" />
       <Button layoutX="196.0" layoutY="199.0" mnemonicParsing="false" onAction="#copyPasswordBtn" prefHeight="25.0" prefWidth="169.0" text="Copy Selected Password" />
       <CheckBox fx:id="includeUppercaseBox" layoutX="199.0" layoutY="83.0" mnemonicParsing="false" selected="true" text="ABCDEFG" />
       <CheckBox fx:id="noSequentialBox" layoutX="199.0" layoutY="144.0" mnemonicParsing="false" selected="true" text="No sequential characters, e.g. abc " />
