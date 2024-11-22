@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * A class that generates a password based on the given parameters.
+ */
 public class PasswordGenerator {
     // Declare the fields that will be used to generate the password
     private final int passwordLength;
@@ -16,7 +19,7 @@ public class PasswordGenerator {
     private static final String[] NUMBERS = {"0","1","2","3","4","5","6","7","8","9"};
     private static final String[] LOWERCASE = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     private static final String[] UPPERCASE = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-    private static final String[] SPECIAL = {"!","@","#","$","%","^","&","*","(",")","-","_","=","+","[","]","{","}",";",":","'","\\","|",",","<",".",">","/","?"};
+    private static final String[] SPECIAL = {"!","@","#","$","%","^","&","*","(",")","-","_","=","+","[","]","{","}",";",":","'","|",",","<",".",">","/","?"};
     private static final int MAX_ATTEMPTS = 100;
     private String lastCharacter;
     private String[] lastSet;
@@ -46,7 +49,7 @@ public class PasswordGenerator {
      * @return The generated password
      */
     public String generatePassword() {
-        String password = ""; // Not using a StringBuilder for improved code readability
+        StringBuilder password = new StringBuilder(); // Using StringBuilder for increased performance
         Random random = new Random();
         ArrayList<String[]> characterSets = new ArrayList<>();
         // Add the character sets to the list of character sets to choose from
@@ -74,9 +77,10 @@ public class PasswordGenerator {
                 int randomSetIndex = random.nextInt(characterSets.size());
                 String[] randomSet = characterSets.get(randomSetIndex);
                 int randomCharacterIndex = random.nextInt(randomSet.length);
+                String currentCharacter = randomSet[randomCharacterIndex];
                 // If the password contains duplicates and the user doesn't want to include them
                 // increase the attempt counter and generate a new character
-                if (noDuplicate && password.contains(randomSet[randomCharacterIndex])) {
+                if (noDuplicate && password.toString().contains(randomSet[randomCharacterIndex])) {
                     attempts++;
                     continue;
                 }
@@ -86,17 +90,16 @@ public class PasswordGenerator {
                     continue;
                 }
                 // Add the character to the password and update the last character and set used
-                password += randomSet[randomCharacterIndex];
+                password.append(currentCharacter);
                 lastSet = randomSet;
-                lastCharacter = randomSet[randomCharacterIndex];
+                lastCharacter = currentCharacter;
                 i++;
             }
         }
-        return password;
+        return password.toString();
     }
 
     /**
-     *
      * Checks if the selected character is sequential, i.e. the previous character in the generated password
      * is the character that comes before the selected character in the character set. For example abc or 123.
      * @param currentCharacter The character to check

@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Clipboard;
 
+/**
+ * Controller class for the Password Generator UI.
+ */
 public class GeneratorUIController {
     @FXML private TableView<Password> passwordDisplay;
     @FXML private TableColumn<Password, Integer> passwordNumberColumn;
@@ -52,44 +55,52 @@ public class GeneratorUIController {
 
     @FXML
     private void copyPasswordBtn() {
-        String passwordToClipboard = passwordDisplay.getSelectionModel().getSelectedItem().getPassword();
-        stringToClipboard(passwordToClipboard);
+        try {
+            String passwordToClipboard = passwordDisplay.getSelectionModel().getSelectedItem().getPassword();
+            stringToClipboard(passwordToClipboard);
+        } catch (NullPointerException e) {
+            System.out.println("No password selected. \nError Message: " + e.getMessage());
+        }
     }
 
     @FXML
     private void copyAllPasswordsBtn() {
-        String passwordsToClipboard = ""; // Not using a StringBuilder for improved code readability
-        for (Password password : passwordList) { // Add all passwords to a single string
-            passwordsToClipboard += password.getPassword() + "\n";
+        // Create a StringBuilder to store all the passwords
+        StringBuilder passwordsToClipboard = new StringBuilder();
+        for (Password password : passwordList) { // Add all passwords to the StringBuilder
+            passwordsToClipboard.append(password.getPassword()).append("\n");
         }
-        stringToClipboard(passwordsToClipboard);
+        stringToClipboard(passwordsToClipboard.toString());
     }
 
     /**
-     * Generates the passwords based on the User's selected options and adds them to the passwordList.
+     * Generates the passwords based on the user's selected options and adds them to the passwordList.
      */
     private void populatePasswordList() {
         long startTime = System.currentTimeMillis();
-        // Clear the display before generating new passwords
-        clearDisplay();
-        int numberOfPasswords;
-
-        // Get the password length and number of passwords to generate
-        int passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
-        try {
-            numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
-            if (numberOfPasswords >= MAX_NUMBER_OF_PASSWORDS + 1) {
-                showError("The Maximum number of passwords you can generate is: " + MAX_NUMBER_OF_PASSWORDS + "." +
-                        " Please enter a number less than or equal to: " + MAX_NUMBER_OF_PASSWORDS + ".");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            showError("Please enter a valid number of passwords to generate.");
+        // Check if the user has entered valid inputs
+        if (!validateInputs()) {
+            long endTime = System.currentTimeMillis();
+            System.out.println("Process terminated, runtime: " + (endTime - startTime) + " ms");
             return;
         }
+        // Clear the display and get user inputs
+        clearDisplay();
+        int numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
+        int passwordLength = Integer.parseInt(passwordLengthChoiceBox.getValue());
+
         // Create a new PasswordGenerator object with the selected options
-        PasswordGenerator generator = new PasswordGenerator(passwordLength, includeNumbersBox.isSelected(), includeLowercaseBox.isSelected(), includeUppercaseBox.isSelected(), includeSpecialBox.isSelected(), noDuplicateBox.isSelected(), noSequentialBox.isSelected());
-        for (int i = 1; i < numberOfPasswords + 1; i++) { // Generate the number of passwords specified
+        PasswordGenerator generator = new PasswordGenerator(
+                passwordLength,
+                includeNumbersBox.isSelected(),
+                includeLowercaseBox.isSelected(),
+                includeUppercaseBox.isSelected(),
+                includeSpecialBox.isSelected(),
+                noDuplicateBox.isSelected(),
+                noSequentialBox.isSelected()
+        );
+        // Generate the number of passwords specified by the user
+        for (int i = 1; i < numberOfPasswords + 1; i++) {
             String password = generator.generatePassword();
             passwordList.add(new Password(i, password));
         }
@@ -104,6 +115,24 @@ public class GeneratorUIController {
     private void clearDisplay() {
         passwordList.clear();
         passwordDisplay.setItems(passwordList);
+    }
+
+    /**
+     * Checks the user inputs to make sure they are valid
+     * @return True if the inputs are valid, false otherwise
+     */
+    private Boolean validateInputs() {
+        try {
+            int numberOfPasswords = Integer.parseInt(numberOfPasswordsField.getText());
+            if (numberOfPasswords >= MAX_NUMBER_OF_PASSWORDS + 1) {
+                showError("The maximum number of passwords you can generate is: " + MAX_NUMBER_OF_PASSWORDS + ".");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showError("Please enter a valid number of passwords.");
+            return false;
+        }
+        return true;
     }
 
     /**
