@@ -24,7 +24,7 @@ A **user-friendly password generator** built in Java, featuring a graphical user
    - Navigate to the `/dist_jar` directory.
    - Run the `.jar` file manually:
 ```
-java -jar Password_Generator-1.0.jar
+java -jar Password_Generator-1.1.jar
 ```
 
 ### Linux and macOS
@@ -33,7 +33,7 @@ There is currently no dedicated installer for Linux or macOS. Follow these steps
 2. Navigate to the `/dist_jar` directory.
 3. Run the `.jar` file manually:
 ```
- java -jar Password_Generator-1.0.jar
+ java -jar Password_Generator-1.1.jar
 ```
 
 ## Development Environment: IntelliJ IDEA 
@@ -84,6 +84,6 @@ mvnw.cmd clean install
 ```
 ## Acknowledgements
 This project uses:
-- **JavaFX** For the uer interface.
+- **JavaFX** For the user interface.
 - **Maven** for build automation.
 - **IntelliJ IDEA** as the development environment.
