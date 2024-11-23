@@ -33,7 +33,7 @@
         </dependency>
     </dependencies>
     <build>
-        <directory>${project.basedir}/build</directory>
+        <directory>${project.basedir}/target</directory>
         <finalName>Password_Generator-${project.version}</finalName>
         <pluginManagement>
             <plugins>
