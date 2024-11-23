@@ -2,6 +2,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +27,9 @@ public class GeneratorUIController {
     @FXML private CheckBox includeSpecialBox;
     @FXML private CheckBox noDuplicateBox;
     @FXML private CheckBox noSequentialBox;
+    @FXML private Button generatePasswordsButton;
+    @FXML private Button copySelectedButton;
+    @FXML private Button copyAllButton;
 
     private final static int MAX_NUMBER_OF_PASSWORDS = 1000000;
     private static final ObservableList<String> passwordLengths = FXCollections.observableArrayList("6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25");
@@ -104,6 +108,10 @@ public class GeneratorUIController {
             String password = generator.generatePassword();
             passwordList.add(new Password(i, password));
         }
+        // Enable the copy buttons
+        copySelectedButton.setDisable(false);
+        copyAllButton.setDisable(false);
+
         // Check the runtime of the password generation process
         long endTime = System.currentTimeMillis();
         System.out.println("Time taken to generate passwords: " + (endTime - startTime) + " ms");

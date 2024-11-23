@@ -1,5 +1,8 @@
 import javafx.scene.control.Alert;
 
+/**
+ * Class to create an Error Window
+ */
 public class ErrorWindowCreator {
     private String title;
     private String header;
@@ -17,6 +20,9 @@ public class ErrorWindowCreator {
         this.content = content;
     }
 
+    /**
+     * Shows the Error Window
+     */
     public void show() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
